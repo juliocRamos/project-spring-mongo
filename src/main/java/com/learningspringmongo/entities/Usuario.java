@@ -2,15 +2,16 @@ package com.learningspringmongo.entities;
 
 import java.io.Serializable;
 
-/**
- * @author Julio-Ramos
- *
- */
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	@Id
+	private String id;
 
 	private String nome;
 
@@ -19,18 +20,18 @@ public class Usuario implements Serializable {
 	public Usuario() {
 	}
 	
-	public Usuario(Long id, String nome, String email) {
+	public Usuario(String id, String nome, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
