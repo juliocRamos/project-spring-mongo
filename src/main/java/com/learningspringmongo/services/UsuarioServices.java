@@ -29,6 +29,9 @@ public class UsuarioServices {
 	public Usuario insert(Usuario entity) {
 		return repository.insert(entity);
 	}
+	public void delete(String id) {
+		repository.deleteById(id);
+	}
 	
 	public Usuario fromDTO(UsuarioDTO dto) {
 		if (dto != null) {
