@@ -41,8 +41,11 @@ public class InstantiationMongoDb implements CommandLineRunner {
 		Post post1 = new Post(null, sdf.parse("21/08/2018"), "Partiu viagem", "Vou viajar para SP. Abraços!", new AutorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("23/03/2019"), "Bom dia", "Acordei feliz hoje!", new AutorDTO(maria));
 
-		usuarioRepository.saveAll(Arrays.asList(maria, bob, alex));
 		postRepository.saveAll(Arrays.asList(post1, post2));
+		
+		
+		maria.getPosts().addAll(Arrays.asList(post1, post2));
+		usuarioRepository.saveAll(Arrays.asList(maria, bob, alex));
 	}
 
 }

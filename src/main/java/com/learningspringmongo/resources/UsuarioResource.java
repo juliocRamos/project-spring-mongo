@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.learningspringmongo.dto.UsuarioDTO;
+import com.learningspringmongo.entities.Post;
 import com.learningspringmongo.entities.Usuario;
 import com.learningspringmongo.services.UsuarioServices;
 
@@ -58,6 +59,12 @@ public class UsuarioResource {
 	public ResponseEntity<UsuarioDTO> deleteById(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity<List<Post>> findPostsByUsuario(@PathVariable String id) {
+		Usuario entity = service.findById(id);
+		return ResponseEntity.ok().body(entity.getPosts());
 	}
 
 	@PutMapping(value = "/{id}")

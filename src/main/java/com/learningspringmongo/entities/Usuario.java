@@ -1,10 +1,17 @@
 package com.learningspringmongo.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * @author Julio-Ramos
+ *
+ */
 @Document
 public class Usuario implements Serializable {
 
@@ -17,9 +24,12 @@ public class Usuario implements Serializable {
 
 	private String email;
 
+	@DBRef(lazy = true)
+	private List<Post> posts = new ArrayList<>();
+
 	public Usuario() {
 	}
-	
+
 	public Usuario(String id, String nome, String email) {
 		super();
 		this._id = id;
@@ -51,6 +61,14 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,5 +92,5 @@ public class Usuario implements Serializable {
 		} else if (!_id.equals(other._id))
 			return false;
 		return true;
-	}	
+	}
 }
