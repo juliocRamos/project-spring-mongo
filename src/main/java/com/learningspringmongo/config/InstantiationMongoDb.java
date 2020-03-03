@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.learningspringmongo.dto.AutorDTO;
+import com.learningspringmongo.dto.ComentarioDTO;
 import com.learningspringmongo.entities.Post;
 import com.learningspringmongo.entities.Usuario;
 import com.learningspringmongo.repository.PostRepository;
@@ -41,8 +42,14 @@ public class InstantiationMongoDb implements CommandLineRunner {
 		Post post1 = new Post(null, sdf.parse("21/08/2018"), "Partiu viagem", "Vou viajar para SP. Abraços!", new AutorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("23/03/2019"), "Bom dia", "Acordei feliz hoje!", new AutorDTO(maria));
 
-		postRepository.saveAll(Arrays.asList(post1, post2));
+		ComentarioDTO com1 = new ComentarioDTO("Boa viagem", sdf.parse("21/03/2018"), new AutorDTO(alex));
+		ComentarioDTO com2 = new ComentarioDTO("Aproveite!!", sdf.parse("22/03/2018"), new AutorDTO(bob));
+		ComentarioDTO com3 = new ComentarioDTO("Tenha um ótimo dia!", sdf.parse("23/03/2018"), new AutorDTO(alex));
 		
+		post1.getComentarios().addAll(Arrays.asList(com1, com2));
+		post2.getComentarios().addAll(Arrays.asList(com3));
+		
+		postRepository.saveAll(Arrays.asList(post1, post2));
 		
 		maria.getPosts().addAll(Arrays.asList(post1, post2));
 		usuarioRepository.saveAll(Arrays.asList(maria, bob, alex));

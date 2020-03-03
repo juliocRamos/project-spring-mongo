@@ -1,13 +1,20 @@
 package com.learningspringmongo.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.learningspringmongo.dto.AutorDTO;
+import com.learningspringmongo.dto.ComentarioDTO;
 
+/**
+ * @author Julio-Ramos
+ *
+ */
 @Document
 public class Post implements Serializable {
 
@@ -23,6 +30,8 @@ public class Post implements Serializable {
 	private String body;
 
 	private AutorDTO autor;
+
+	private List<ComentarioDTO> comentarios = new ArrayList<>();
 
 	public Post() {
 	}
@@ -74,6 +83,14 @@ public class Post implements Serializable {
 
 	public void setAutor(AutorDTO autor) {
 		this.autor = autor;
+	}
+
+	public List<ComentarioDTO> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<ComentarioDTO> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	@Override
