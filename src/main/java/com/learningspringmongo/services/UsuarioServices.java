@@ -29,10 +29,23 @@ public class UsuarioServices {
 	public Usuario insert(Usuario entity) {
 		return repository.insert(entity);
 	}
+
 	public void delete(String id) {
 		repository.deleteById(id);
 	}
 	
+	public Usuario update(Usuario entity) {
+		Optional<Usuario> newEntity = repository.findById(entity.getId());
+		Usuario updatedUsuario = updateData(newEntity.get(), entity);
+		return repository.save(updatedUsuario);
+	}
+	
+	private Usuario updateData(Usuario newEntity, Usuario entity) {
+		newEntity.setNome(entity.getNome());
+		newEntity.setEmail(entity.getEmail());
+		return newEntity;
+	}
+
 	public Usuario fromDTO(UsuarioDTO dto) {
 		if (dto != null) {
 			return new Usuario(dto.getId(), dto.getNome(), dto.getEmail());

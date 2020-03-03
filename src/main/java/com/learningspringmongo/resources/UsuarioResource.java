@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,19 +45,26 @@ public class UsuarioResource {
 		Usuario usuario = service.findById(id);
 		return ResponseEntity.ok().body(new UsuarioDTO(usuario));
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody UsuarioDTO dto){
+	public ResponseEntity<Void> insert(@RequestBody UsuarioDTO dto) {
 		Usuario entity = service.fromDTO(dto);
 		entity = service.insert(entity);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entity.getId()).toUri();
-		return ResponseEntity.created(uri).build();	
+		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<UsuarioDTO> deleteById(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Void> insert(@RequestBody UsuarioDTO dto, @PathVariable String id) {
+		Usuario entity = service.fromDTO(dto);
+		entity.setId(id);
+		entity = service.update(entity);
+		return ResponseEntity.noContent().build();
+	}
 }
